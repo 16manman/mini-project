@@ -1,10 +1,16 @@
 import Vue from 'vue'
-import App from './App'
+import App from '@/App'
+import store from '@/store'
+// import '@/assets/css/base.scss'
+import '@/assets/css/iconfont.css'
 
 Vue.config.productionTip = false
 App.mpType = 'app'
 
-const app = new Vue(App)
+const app = new Vue({
+  store,
+  ...App
+})
 app.$mount()
 
 export default {

@@ -1,11 +1,19 @@
 <template>
-	<div>
+	<div class="login">
 		login
+		<p class="name">
+			name
+		</p>
 	</div>
 </template>
 <script>
 	
 </script>
-<style>
-	
+<style scoped lang="scss">
+	.login{
+		color: red;
+		.name{
+			color: #ccc;
+		}
+	}
 </style>
