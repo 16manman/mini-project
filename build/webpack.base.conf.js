@@ -5,24 +5,27 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var MpvuePlugin = require('webpack-mpvue-asset-plugin')
 var glob = require('glob')
+const getEntry = require('mpvue-entry')
+
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-function getEntry (rootSrc, pattern) {
-  var files = glob.sync(path.resolve(rootSrc, pattern))
-  return files.reduce((res, file) => {
-    var info = path.parse(file)
-    var key = info.dir.slice(rootSrc.length + 1) + '/' + info.name
-    res[key] = path.resolve(file)
-    return res
-  }, {})
-}
+// function getEntry (rootSrc, pattern) {
+//   var files = glob.sync(path.resolve(rootSrc, pattern))
+//   return files.reduce((res, file) => {
+//     var info = path.parse(file)
+//     var key = info.dir.slice(rootSrc.length + 1) + '/' + info.name
+//     res[key] = path.resolve(file)
+//     return res
+//   }, {})
+// }
 
-const appEntry = { app: resolve('./src/main.js') }
-const pagesEntry = getEntry(resolve('./src'), 'pages/**/main.js')
-const entry = Object.assign({}, appEntry, pagesEntry)
+// const appEntry = { app: resolve('./src/main.js') }
+// const pagesEntry = getEntry(resolve('./src'), 'pages/**/main.js')
+// const entry = Object.assign({}, appEntry, pagesEntry)
+const entry = getEntry('./src/router/router.js')
 
 module.exports = {
   // 如果要自定义生成的 dist 目录里面的文件路径，
@@ -54,7 +57,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        include: [resolve('src'), resolve('test')],
+        include: [resolve('src'), resolve('node_modules/mpvue-entry')],
         use: [
           'babel-loader',
           {
